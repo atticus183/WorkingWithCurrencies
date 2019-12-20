@@ -11,7 +11,10 @@
 		12887A0D23A8A47300097E5B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12887A0C23A8A47300097E5B /* SceneDelegate.swift */; };
 		12887A0F23A8A47300097E5B /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12887A0E23A8A47300097E5B /* MainVC.swift */; };
 		12887A1423A8A47600097E5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12887A1323A8A47600097E5B /* Assets.xcassets */; };
-		12887A1723A8A47600097E5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12887A1523A8A47600097E5B /* LaunchScreen.storyboard */; };
+		12887A1F23A8A68300097E5B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12887A1E23A8A68300097E5B /* Extensions.swift */; };
+		12887A2123A8AE7D00097E5B /* SelectCurrencyTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12887A2023A8AE7D00097E5B /* SelectCurrencyTVC.swift */; };
+		12887A2323A8AE9F00097E5B /* SelectCurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12887A2223A8AE9F00097E5B /* SelectCurrencyCell.swift */; };
+		12887A2723A8AF6200097E5B /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12887A2623A8AF6200097E5B /* Currency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,8 +23,11 @@
 		12887A0C23A8A47300097E5B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		12887A0E23A8A47300097E5B /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		12887A1323A8A47600097E5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		12887A1623A8A47600097E5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12887A1823A8A47600097E5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12887A1E23A8A68300097E5B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		12887A2023A8AE7D00097E5B /* SelectCurrencyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyTVC.swift; sourceTree = "<group>"; };
+		12887A2223A8AE9F00097E5B /* SelectCurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyCell.swift; sourceTree = "<group>"; };
+		12887A2623A8AF6200097E5B /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +63,12 @@
 				12887A0A23A8A47300097E5B /* AppDelegate.swift */,
 				12887A0C23A8A47300097E5B /* SceneDelegate.swift */,
 				12887A0E23A8A47300097E5B /* MainVC.swift */,
+				12887A2023A8AE7D00097E5B /* SelectCurrencyTVC.swift */,
+				12887A2223A8AE9F00097E5B /* SelectCurrencyCell.swift */,
 				12887A1323A8A47600097E5B /* Assets.xcassets */,
-				12887A1523A8A47600097E5B /* LaunchScreen.storyboard */,
 				12887A1823A8A47600097E5B /* Info.plist */,
+				12887A1E23A8A68300097E5B /* Extensions.swift */,
+				12887A2623A8AF6200097E5B /* Currency.swift */,
 			);
 			path = WorkingWithCurrencies;
 			sourceTree = "<group>";
@@ -122,7 +131,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12887A1723A8A47600097E5B /* LaunchScreen.storyboard in Resources */,
 				12887A1423A8A47600097E5B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,22 +144,15 @@
 			files = (
 				12887A0F23A8A47300097E5B /* MainVC.swift in Sources */,
 				12887A0B23A8A47300097E5B /* AppDelegate.swift in Sources */,
+				12887A2323A8AE9F00097E5B /* SelectCurrencyCell.swift in Sources */,
 				12887A0D23A8A47300097E5B /* SceneDelegate.swift in Sources */,
+				12887A2123A8AE7D00097E5B /* SelectCurrencyTVC.swift in Sources */,
+				12887A2723A8AF6200097E5B /* Currency.swift in Sources */,
+				12887A1F23A8A68300097E5B /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		12887A1523A8A47600097E5B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				12887A1623A8A47600097E5B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		12887A1923A8A47600097E5B /* Debug */ = {
