@@ -30,6 +30,7 @@ class MainVC: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 48, weight: .bold)
         textField.textColor = .white
         textField.placeholder = "0.00"
+        textField.keyboardType = .numberPad
         textField.addTarget(self, action: #selector(enterAmtChanged(_:)), for: .editingChanged)
         
         return textField
@@ -125,6 +126,7 @@ class MainVC: UIViewController {
         detailTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         detailTableView.delegate = self
         detailTableView.dataSource = self
+        detailTableView.keyboardDismissMode = .onDrag  //so the user can dismiss the keyboard after entering an ammount
         
         detailTableView.layer.cornerRadius = 10
     }
