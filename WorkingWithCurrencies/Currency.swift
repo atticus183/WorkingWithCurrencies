@@ -67,7 +67,6 @@ struct Currency {
         //Clean string first
         let cleanedString = Double(Currency.cleanString(given: stringAmount)) ?? 0.0
         
-        
         let numberFormatter = NumberFormatter()
         numberFormatter.locale = Locale(identifier: localeString)
         numberFormatter.numberStyle = .currency

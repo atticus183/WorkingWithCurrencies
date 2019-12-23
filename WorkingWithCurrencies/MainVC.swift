@@ -201,7 +201,7 @@ extension MainVC: UITextFieldDelegate {
             //Removes the right handed currency symbol
             let droppedText = Currency.cleanString(given: textField.text ?? "").dropLast()
             let amountText = String(droppedText)
-            enterAmountTxt.text = Currency.currencyInputFormatting(with: selectedCurrency.locale, for: amountText)
+            textField.text = Currency.currencyInputFormatting(with: selectedCurrency.locale, for: amountText)
         }
         
         return true
@@ -212,9 +212,7 @@ extension MainVC: PassCurrencyDelegate {
     func pass(_ currency: Currency) {
         selectedCurrency = currency
         detailTableView.reloadData()
-        
     }
-    
 }
 
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
