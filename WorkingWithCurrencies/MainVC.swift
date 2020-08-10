@@ -94,7 +94,7 @@ class MainVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //NOTE: not called after navigating back from SelectCurrencyTVC due to iOS13s new modal presentation.  You can change it by forcing the presentating style to be fullscreen
+        //NOTE: not called after navigating back from SelectCurrencyTVC due to iOS13s new modal presentation.  You can change it by forcing the presentation style to be fullscreen
     }
     
     //Changes the status bar text color to white
@@ -124,9 +124,10 @@ class MainVC: UIViewController {
     
     private func setupTableView() {
         detailTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        detailTableView.backgroundColor = .white
         detailTableView.delegate = self
         detailTableView.dataSource = self
-        detailTableView.keyboardDismissMode = .onDrag  //so the user can dismiss the keyboard after entering an ammount
+        detailTableView.keyboardDismissMode = .onDrag  //so the user can dismiss the keyboard after entering an amount
         
         detailTableView.layer.cornerRadius = 10
     }
@@ -136,7 +137,7 @@ class MainVC: UIViewController {
     }
     
     private func generateExampleFigures() -> String {
-        var formatedStringAmount = ""
+        var formattedStringAmount = ""
         
         if let selectedCurrency = selectedCurrency {
             let numbers = [0.01, 1, 10, 100, 1000, 10000, 100000]
@@ -147,11 +148,11 @@ class MainVC: UIViewController {
             
             for number in numbers {
                 let currency = Currency(locale: selectedCurrency.locale, amount: number)
-                formatedStringAmount += "\(currency.format)  "
+                formattedStringAmount += "\(currency.format)  "
             }
         }
         
-        return formatedStringAmount
+        return formattedStringAmount
     }
 
     
@@ -222,6 +223,8 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1 , reuseIdentifier: cellID)
+        cell.backgroundColor = .white
+        cell.textLabel?.textColor = .black
         
         guard let currencyDetail = selectedCurrency?.retrieveDetailedInformation()[indexPath.row] else { return UITableViewCell() }
         

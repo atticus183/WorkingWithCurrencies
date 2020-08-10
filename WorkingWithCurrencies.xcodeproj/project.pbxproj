@@ -28,6 +28,7 @@
 		12887A2023A8AE7D00097E5B /* SelectCurrencyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyTVC.swift; sourceTree = "<group>"; };
 		12887A2223A8AE9F00097E5B /* SelectCurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyCell.swift; sourceTree = "<group>"; };
 		12887A2623A8AF6200097E5B /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		12BB38DE24919782007B2A92 /* CurrenciesPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = CurrenciesPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +61,7 @@
 		12887A0923A8A47300097E5B /* WorkingWithCurrencies */ = {
 			isa = PBXGroup;
 			children = (
+				12BB38DD24919738007B2A92 /* Playgrounds */,
 				12887A0A23A8A47300097E5B /* AppDelegate.swift */,
 				12887A0C23A8A47300097E5B /* SceneDelegate.swift */,
 				12887A0E23A8A47300097E5B /* MainVC.swift */,
@@ -71,6 +73,14 @@
 				12887A2623A8AF6200097E5B /* Currency.swift */,
 			);
 			path = WorkingWithCurrencies;
+			sourceTree = "<group>";
+		};
+		12BB38DD24919738007B2A92 /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				12BB38DE24919782007B2A92 /* CurrenciesPlayground.playground */,
+			);
+			path = Playgrounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
