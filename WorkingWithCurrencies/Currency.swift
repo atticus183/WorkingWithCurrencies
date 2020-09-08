@@ -13,25 +13,23 @@ struct Currency {
     let amount: Double
     
     var code: String? {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.locale = Locale(identifier: self.locale)
-        
-        return numberFormatter.currencyCode ?? "N/A"
+        return formatter.currencyCode ?? "N/A"
     }
     
     var symbol: String? {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.locale = Locale(identifier: self.locale)
-        
-        return numberFormatter.currencySymbol  ?? "N/A"
+        return formatter.currencySymbol  ?? "N/A"
     }
     
     var format: String {
+        return formatter.string(from: NSNumber(value: self.amount))!
+    }
+
+    var formatter: NumberFormatter {
         let numberFormatter = NumberFormatter()
         numberFormatter.locale = Locale(identifier: self.locale)
         numberFormatter.numberStyle = .currency
         
-        return numberFormatter.string(from: amount as NSNumber) ?? "N/A"
+        return numberFormatter
     }
     
     //Used to populate the cells on the MainVC
@@ -50,37 +48,26 @@ struct Currency {
     }
     
     //MARK: Clean formatting from string
-    static func cleanString(given formattedString: String) -> String {
-        var cleanedAmount = ""
-        
-        for character in formattedString {
-            if character.isNumber {
-                cleanedAmount.append(character)
-            }
-        }
-        
-        return cleanedAmount
-    }
+    //not used anymore but left for example
+//    static func cleanString(given formattedString: String) -> String {
+//        var cleanedAmount = ""
+//
+//        for character in formattedString {
+//            if character.isNumber {
+//                cleanedAmount.append(character)
+//            }
+//        }
+//
+//        return cleanedAmount
+//    }
     
     //MARK: Use when saving to a database which only requires numeric values
-    static func saveCurrencyAsDouble(with localeString: String, for stringAmount: String) -> Double {
-        //Clean string first
-        let cleanedString = Double(Currency.cleanString(given: stringAmount)) ?? 0.0
-        
+    static func formatCurrencyStringAsDouble(with localeString: String, for stringAmount: String) -> Double {
         let numberFormatter = NumberFormatter()
         numberFormatter.locale = Locale(identifier: localeString)
         numberFormatter.numberStyle = .currency
         
-        let numberOfDecimalPlaces = numberFormatter.maximumFractionDigits
-        
-        //Format the number based currency locale.  ie. JPY only uses whole numbers
-        if numberOfDecimalPlaces > 0 {
-            //ie. USD
-            return cleanedString / 100.0
-        } else {
-            //ie. JPY
-            return cleanedString
-        }
+        return numberFormatter.number(from: stringAmount) as! Double
     }
     
     //MARK: Currency Input Formatting - called when the user enters an amount in the

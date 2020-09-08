@@ -107,7 +107,7 @@ class MainVC: UIViewController {
     @objc func enterAmtChanged(_ textField: UITextField) {
         guard let selectedCurrency = selectedCurrency else { return }
         enterAmountTxt.text = Currency.currencyInputFormatting(with: selectedCurrency.locale, for: textField.text ?? "")
-        cleanAmtLbl.text = "Cleaned currency: \(Currency.saveCurrencyAsDouble(with: selectedCurrency.locale, for: enterAmountTxt.text ?? "0"))"
+        cleanAmtLbl.text = "Cleaned currency: \(Currency.formatCurrencyStringAsDouble(with: selectedCurrency.locale, for: enterAmountTxt.text ?? "0"))"
     }
     
     //MARK: showCurrenciesBtn selector method
@@ -200,9 +200,9 @@ extension MainVC: UITextFieldDelegate {
         //For hitting backspace and currency is on the right side
         if string == "" && textField.text!.isLastCharANumber() == false {
             //Removes the right handed currency symbol
-            let droppedText = Currency.cleanString(given: textField.text ?? "").dropLast()
-            let amountText = String(droppedText)
-            textField.text = Currency.currencyInputFormatting(with: selectedCurrency.locale, for: amountText)
+            let amountAsNumber = Currency.formatCurrencyStringAsDouble(with: selectedCurrency.locale, for: textField.text ?? "")
+            let amountText = String(amountAsNumber).dropLast()
+            textField.text = Currency.currencyInputFormatting(with: selectedCurrency.locale, for: String(amountText))
         }
         
         return true
