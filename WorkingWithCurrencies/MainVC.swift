@@ -15,6 +15,8 @@ class MainVC: UIViewController {
             exampleLbl.text = generateExampleFigures()
             enterAmountTxt.text?.removeAll()
             cleanAmtLbl.text = "0"
+            enterAmountTxt.currencyCode = selectedCurrency?.code
+            enterAmountTxt.locale = Locale(identifier: selectedCurrency?.locale ?? "en_US")
             enterAmountTxt.becomeFirstResponder()
         }
     }
@@ -23,15 +25,12 @@ class MainVC: UIViewController {
     let detailTableView = UITableView()
     let cellHeight: CGFloat = 45.0  //set as property so it can be used to set the TV constraints
     
-    lazy var enterAmountTxt: UITextField = {
-        let textField = UITextField()
+    lazy var enterAmountTxt: CurrencyTextField = {
+        let textField = CurrencyTextField()
         textField.frame = .zero  //will use auto-layout
-        textField.textAlignment = .right
         textField.font = UIFont.systemFont(ofSize: 48, weight: .bold)
         textField.textColor = .white
         textField.placeholder = "0.00"
-        textField.keyboardType = .numberPad
-        textField.addTarget(self, action: #selector(enterAmtChanged(_:)), for: .editingChanged)
         
         return textField
     }()
@@ -89,7 +88,10 @@ class MainVC: UIViewController {
         setCurrencyOnStart()
         self.view.backgroundColor = .systemBlue
         
-        enterAmountTxt.delegate = self
+        //Pass amount from CurrencyTextField class
+        enterAmountTxt.passTextFieldText = { [weak self] enteredStringAmount, amountAsDouble in
+            self?.cleanAmtLbl.text = String(amountAsDouble ?? 0.0)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,15 +103,7 @@ class MainVC: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    
-    //MARK: EnterAmount selector method
-    @objc func enterAmtChanged(_ textField: UITextField) {
-        guard let selectedCurrency = selectedCurrency else { return }
-        enterAmountTxt.text = Currency.currencyInputFormatting(with: selectedCurrency.locale, for: textField.text ?? "")
-        cleanAmtLbl.text = "Cleaned currency: \(Currency.formatCurrencyStringAsDouble(with: selectedCurrency.locale, for: enterAmountTxt.text ?? "0"))"
-    }
-    
+
     //MARK: showCurrenciesBtn selector method
     @objc func currencyBtnTapped() {
         let rootViewController = SelectCurrencyTVC()
@@ -155,7 +149,6 @@ class MainVC: UIViewController {
         return formattedStringAmount
     }
 
-    
     fileprivate func setupViewConstraints() {
         enterAmountTxt.translatesAutoresizingMaskIntoConstraints = false
         detailTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -190,23 +183,6 @@ class MainVC: UIViewController {
         showCurrenciesBtn.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
     }
 
-}
-
-extension MainVC: UITextFieldDelegate {
-    //Note: called before selector method
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let selectedCurrency = selectedCurrency else { return false }
-        
-        //For hitting backspace and currency is on the right side
-        if string == "" && textField.text!.isLastCharANumber() == false {
-            //Removes the right handed currency symbol
-            let amountAsNumber = Currency.formatCurrencyStringAsDouble(with: selectedCurrency.locale, for: textField.text ?? "")
-            let amountText = String(amountAsNumber).dropLast()
-            textField.text = Currency.currencyInputFormatting(with: selectedCurrency.locale, for: String(amountText))
-        }
-        
-        return true
-    }
 }
 
 extension MainVC: PassCurrencyDelegate {
