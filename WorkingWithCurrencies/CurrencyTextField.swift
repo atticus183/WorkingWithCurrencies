@@ -9,24 +9,31 @@
 import UIKit
 
 class CurrencyTextField: UITextField {
-    
+
     var passTextFieldText: ((String, Double?) -> Void)?
     
-    var currencyCode: String? {
-        didSet { numberFormatter.currencyCode = self.currencyCode ?? Locale.current.currencyCode ?? "USD" }
+    var currency: Currency? {
+        didSet {
+            guard let currency = currency else { return }
+            numberFormatter.currencyCode = currency.code
+            numberFormatter.locale = Locale(identifier: currency.locale)
+        }
     }
-    var locale: Locale? {
-        didSet { numberFormatter.locale = self.locale ?? Locale.current }
-    }
+
+    //Used to send clean double value back
+    private var amountAsDouble: Double?
     
-    var amountAsDouble: Double?
+    var startingValue: Double? {
+        didSet {
+            let nsNumber = NSNumber(value: startingValue ?? 0.0)
+            self.text = numberFormatter.string(from: nsNumber)
+        }
+    }
     
     private lazy var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.locale = self.locale ?? Locale.current
-        formatter.currencyCode = self.currencyCode ?? Locale.current.currencyCode ?? "USD"
-        
+        //locale and currencyCode set in currency property observer
         return formatter
     }()
     
@@ -51,14 +58,19 @@ class CurrencyTextField: UITextField {
     private func setup() {
         self.textAlignment = .right
         self.keyboardType = .numberPad
+        self.contentScaleFactor = 0.5
         delegate = self
-        
+
         self.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
     //AFTER entered string is registered in the textField
-    @objc func textFieldDidChange() {
-        print("Text in textFieldDidChange before cleaning: \(String(describing: self.text))")
+    @objc private func textFieldDidChange() {
+        updateTextField()
+    }
+    
+    //Placed in separate method so when the user selects an account with a different currency, it will immediately be reflected
+    private func updateTextField() {
         var cleanedAmount = ""
         
         for character in self.text ?? "" {
@@ -89,6 +101,13 @@ class CurrencyTextField: UITextField {
         passTextFieldText?(self.text!, amountAsDouble)
     }
     
+    //Prevents the user from moving the cursor in the textField
+    //Source: https://stackoverflow.com/questions/16419095/prevent-user-from-setting-cursor-position-on-uitextfield
+    override func closestPosition(to point: CGPoint) -> UITextPosition? {
+        let beginning = self.beginningOfDocument
+        let end = self.position(from: beginning, offset: self.text?.count ?? 0)
+        return end
+    }
 }
 
 
@@ -105,9 +124,6 @@ extension CurrencyTextField: UITextFieldDelegate {
         } else {
             isSymbolOnRight = false
         }
-        
-        print("shouldChangeCharactersIn - textField: \(String(describing: textField.text))")
-        print("shouldChangeCharactersIn - replacementString: \(string)")
         
         return true
     }

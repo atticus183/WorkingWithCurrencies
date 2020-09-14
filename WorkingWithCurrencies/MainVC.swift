@@ -15,8 +15,7 @@ class MainVC: UIViewController {
             exampleLbl.text = generateExampleFigures()
             enterAmountTxt.text?.removeAll()
             cleanAmtLbl.text = "0"
-            enterAmountTxt.currencyCode = selectedCurrency?.code
-            enterAmountTxt.locale = Locale(identifier: selectedCurrency?.locale ?? "en_US")
+            enterAmountTxt.currency = selectedCurrency
             enterAmountTxt.becomeFirstResponder()
         }
     }
