@@ -17,6 +17,8 @@ class MainVC: UIViewController {
             cleanAmtLbl.text = "0"
             enterAmountTxt.currency = selectedCurrency
             enterAmountTxt.becomeFirstResponder()
+            
+            detailTableView.reloadData()
         }
     }
     
@@ -187,7 +189,6 @@ class MainVC: UIViewController {
 extension MainVC: PassCurrencyDelegate {
     func pass(_ currency: Currency) {
         selectedCurrency = currency
-        detailTableView.reloadData()
     }
 }
 
@@ -200,6 +201,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell(style: .value1 , reuseIdentifier: cellID)
         cell.backgroundColor = .white
         cell.textLabel?.textColor = .black
+        cell.detailTextLabel?.textColor = .darkGray
         
         guard let currencyDetail = selectedCurrency?.retrieveDetailedInformation()[indexPath.row] else { return UITableViewCell() }
         
