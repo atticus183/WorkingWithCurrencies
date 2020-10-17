@@ -9,7 +9,7 @@
 import UIKit
 
 class CurrencyTextField: UITextField {
-
+    
     var passTextFieldText: ((String, Double?) -> Void)?
     
     var currency: Currency? {
@@ -19,7 +19,7 @@ class CurrencyTextField: UITextField {
             numberFormatter.locale = Locale(identifier: currency.locale)
         }
     }
-
+    
     //Used to send clean double value back
     private var amountAsDouble: Double?
     
@@ -60,7 +60,7 @@ class CurrencyTextField: UITextField {
         self.keyboardType = .numberPad
         self.contentScaleFactor = 0.5
         delegate = self
-
+        
         self.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
